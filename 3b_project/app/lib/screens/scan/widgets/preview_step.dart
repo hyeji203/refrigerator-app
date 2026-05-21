@@ -6,7 +6,7 @@ class PreviewStep extends StatelessWidget {
   /// 미리보기에 표시할 이미지 바이트
   final Uint8List imageBytes;
 
-  /// 'AI로 식재료 인식하기' 버튼 콜백
+  /// '분석하기' 버튼 콜백
   final VoidCallback onAnalyze;
 
   /// '다른 사진 선택' 버튼 콜백
@@ -42,8 +42,7 @@ class PreviewStep extends StatelessWidget {
                     child: Text(
                       '냉장고 내부가\n선명하게 보이나요?',
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(color: Colors.white70, fontSize: 14),
+                      style: TextStyle(color: Colors.white70, fontSize: 14),
                     ),
                   ),
                 ),
@@ -61,9 +60,9 @@ class PreviewStep extends StatelessWidget {
                 height: 56,
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.auto_awesome),
-                  label: const Text('AI로 식재료 인식하기',
-                      style: TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold)),
+                  label: const Text('분석하기',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   onPressed: onAnalyze,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,

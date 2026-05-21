@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -29,6 +30,7 @@ class _ScanScreenState extends State<ScanScreen>
   Uint8List? _imageBytes;
   ScanStep _step = ScanStep.select;
   List<ScanIngredientItem> _items = [];
+  String _rawResponse = '';
   bool _isSaving = false;
   late AnimationController _pulseCtrl;
   late Animation<double> _pulseAnim;
@@ -57,8 +59,8 @@ class _ScanScreenState extends State<ScanScreen>
     final picker = ImagePicker();
     final picked = await picker.pickImage(
       source: source,
-      imageQuality: 85,
-      maxWidth: 1280,
+      imageQuality: 70,
+      maxWidth: 800,
     );
     if (picked == null) return;
     final bytes = await picked.readAsBytes();
@@ -76,9 +78,10 @@ class _ScanScreenState extends State<ScanScreen>
     setState(() => _step = ScanStep.analyzing);
 
     try {
-      final names = await IngredientApiService.analyzeImage(_imageBytes!);
+      final result = await IngredientApiService.analyzeImage(_imageBytes!);
       setState(() {
-        _items = names.map((n) => ScanIngredientItem(name: n)).toList();
+        _items = result.ingredients.map((n) => ScanIngredientItem(name: n)).toList();
+        _rawResponse = result.rawResponse;
         _step = ScanStep.review;
       });
       if (_items.isEmpty) {
@@ -87,7 +90,12 @@ class _ScanScreenState extends State<ScanScreen>
       }
     } catch (e) {
       setState(() => _step = ScanStep.preview);
-      _showError('분석 중 오류가 발생했습니다: $e');
+      if (e is DioException) {
+        final serverMsg = e.response?.data?['message'];
+        _showError('분석 실패: ${serverMsg ?? e.message ?? e.toString()}');
+      } else {
+        _showError('분석 중 오류가 발생했습니다: $e');
+      }
     }
   }
 
@@ -201,6 +209,7 @@ class _ScanScreenState extends State<ScanScreen>
       _imageBytes = null;
       _step = ScanStep.select;
       _items = [];
+      _rawResponse = '';
     });
   }
 
@@ -251,6 +260,7 @@ class _ScanScreenState extends State<ScanScreen>
         return ReviewStep(
           items: _items,
           isSaving: _isSaving,
+          rawResponse: _rawResponse,
           onToggleAll: (v) => setState(() {
             for (final item in _items) {
               item.selected = v;

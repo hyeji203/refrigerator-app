@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.*;
 
@@ -40,23 +41,59 @@ public class GeminiVisionService {
             Map<String, Object> requestBody = buildVisionRequest(base64Image, mimeType);
 
             WebClient webClient = webClientBuilder.baseUrl(geminiApiUrl).build();
-            Map response = webClient.post()
-                    .uri("/gemini-2.0-flash:generateContent?key=" + geminiApiKey)
-                    .header("Content-Type", "application/json")
-                    .bodyValue(requestBody)
-                    .retrieve()
-                    .bodyToMono(Map.class)
-                    .block();
+            Map response = callGeminiWithRetry(webClient, requestBody, 3);
 
-            List<String> ingredients = parseIngredientList(response);
+            String rawText = extractRawText(response);
+            List<String> ingredients = parseIngredientList(rawText);
 
             return ScanResponseDto.builder()
                     .recognizedIngredients(ingredients)
+                    .rawResponse(rawText != null ? rawText.trim() : "")
                     .build();
 
         } catch (Exception e) {
             log.error("Gemini 이미지 분석 오류", e);
             throw new RuntimeException("이미지 분석 중 오류가 발생했습니다: " + e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map callGeminiWithRetry(WebClient webClient, Map<String, Object> requestBody, int maxRetries) {
+        for (int attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                return webClient.post()
+                        .uri("/gemini-2.0-flash-exp:generateContent?key=" + geminiApiKey)
+                        .header("Content-Type", "application/json")
+                        .bodyValue(requestBody)
+                        .retrieve()
+                        .bodyToMono(Map.class)
+                        .block();
+            } catch (WebClientResponseException e) {
+                if (e.getStatusCode().value() == 429 && attempt < maxRetries) {
+                    log.warn("Gemini 429 오류, 20초 후 재시도 ({}/{})", attempt, maxRetries - 1);
+                    try { Thread.sleep(20_000); } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                        throw new RuntimeException("재시도 중단됨", ie);
+                    }
+                } else {
+                    throw new RuntimeException("Gemini API 오류 [" + e.getStatusCode() + "]: " + e.getResponseBodyAsString(), e);
+                }
+            }
+        }
+        throw new RuntimeException("Gemini API 요청 실패 (최대 재시도 초과)");
+    }
+
+    @SuppressWarnings("unchecked")
+    private String extractRawText(Map response) {
+        try {
+            List<Map> candidates = (List<Map>) response.get("candidates");
+            Map firstCandidate = candidates.get(0);
+            Map content = (Map) firstCandidate.get("content");
+            List<Map> parts = (List<Map>) content.get("parts");
+            return (String) parts.get(0).get("text");
+        } catch (Exception e) {
+            log.warn("Gemini 응답 텍스트 추출 실패", e);
+            return null;
         }
     }
 
@@ -93,34 +130,20 @@ public class GeminiVisionService {
         return requestBody;
     }
 
-    @SuppressWarnings("unchecked")
-    private List<String> parseIngredientList(Map response) {
-        try {
-            List<Map> candidates = (List<Map>) response.get("candidates");
-            Map firstCandidate = candidates.get(0);
-            Map content = (Map) firstCandidate.get("content");
-            List<Map> parts = (List<Map>) content.get("parts");
-            String rawText = (String) parts.get(0).get("text");
-
-            // "없음" 응답 처리
-            if (rawText.trim().equals("없음")) {
-                return new ArrayList<>();
-            }
-
-            // 쉼표 구분 파싱 + 불필요한 문자 제거
-            List<String> result = new ArrayList<>();
-            for (String item : rawText.split(",")) {
-                String cleaned = item.trim()
-                        .replaceAll("[\\n\\r·•\\-\\*\\d\\.\\(\\)]", "")
-                        .trim();
-                if (!cleaned.isEmpty() && cleaned.length() <= 20) {
-                    result.add(cleaned);
-                }
-            }
-            return result;
-
-        } catch (Exception e) {
+    private List<String> parseIngredientList(String rawText) {
+        if (rawText == null || rawText.trim().equals("없음")) {
             return new ArrayList<>();
         }
+
+        List<String> result = new ArrayList<>();
+        for (String item : rawText.split(",")) {
+            String cleaned = item.trim()
+                    .replaceAll("[\\n\\r·•\\-\\*\\d\\.\\(\\)]", "")
+                    .trim();
+            if (!cleaned.isEmpty() && cleaned.length() <= 20) {
+                result.add(cleaned);
+            }
+        }
+        return result;
     }
 }

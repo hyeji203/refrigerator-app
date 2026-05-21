@@ -37,7 +37,7 @@ class IngredientApiService {
   }
 
   // 냉장고 사진 분석 - AI 인식만 하고 저장은 하지 않음
-  static Future<List<String>> analyzeImage(Uint8List imageBytes) async {
+  static Future<ScanAnalysisResult> analyzeImage(Uint8List imageBytes) async {
     FormData formData = FormData.fromMap({
       'image': MultipartFile.fromBytes(
         imageBytes,
@@ -51,7 +51,10 @@ class IngredientApiService {
       options: Options(contentType: 'multipart/form-data'),
     );
 
-    return List<String>.from(response.data['recognizedIngredients'] ?? []);
+    return ScanAnalysisResult(
+      ingredients: List<String>.from(response.data['recognizedIngredients'] ?? []),
+      rawResponse: response.data['rawResponse'] ?? '',
+    );
   }
 
   // 사용자가 확정한 재료 목록 일괄 저장

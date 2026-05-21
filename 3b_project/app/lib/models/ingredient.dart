@@ -1,3 +1,10 @@
+class ScanAnalysisResult {
+  final List<String> ingredients;
+  final String rawResponse;
+
+  ScanAnalysisResult({required this.ingredients, this.rawResponse = ''});
+}
+
 class ScanIngredientItem {
   String name;
   String quantity;

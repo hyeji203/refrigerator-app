@@ -11,6 +11,9 @@ class ReviewStep extends StatelessWidget {
   /// 저장 API 호출 중 여부 (저장 버튼 비활성화에 사용)
   final bool isSaving;
 
+  /// Gemini 원문 응답 텍스트
+  final String rawResponse;
+
   /// 전체 선택/해제 체크박스 콜백
   final ValueChanged<bool> onToggleAll;
 
@@ -33,6 +36,7 @@ class ReviewStep extends StatelessWidget {
     super.key,
     required this.items,
     required this.isSaving,
+    this.rawResponse = '',
     required this.onToggleAll,
     required this.onToggleItem,
     required this.onEditItem,
@@ -72,6 +76,48 @@ class ReviewStep extends StatelessWidget {
             ],
           ),
         ),
+
+        // ── Gemini 원문 결과 텍스트 ──
+        if (rawResponse.isNotEmpty)
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              border: Border.all(color: Colors.grey.shade200),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.auto_awesome,
+                        size: 14, color: Colors.green.shade600),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Gemini 분석 결과',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  rawResponse,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey.shade700,
+                    height: 1.5,
+                  ),
+                ),
+              ],
+            ),
+          ),
 
         // ── 재료 목록 ──
         Expanded(
