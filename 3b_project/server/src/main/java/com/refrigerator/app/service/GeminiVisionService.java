@@ -62,16 +62,18 @@ public class GeminiVisionService {
         for (int attempt = 1; attempt <= maxRetries; attempt++) {
             try {
                 return webClient.post()
-                        .uri("/gemini-2.0-flash-exp:generateContent?key=" + geminiApiKey)
+                        .uri("/gemini-2.5-flash:generateContent?key=" + geminiApiKey)
                         .header("Content-Type", "application/json")
                         .bodyValue(requestBody)
                         .retrieve()
                         .bodyToMono(Map.class)
                         .block();
             } catch (WebClientResponseException e) {
-                if (e.getStatusCode().value() == 429 && attempt < maxRetries) {
-                    log.warn("Gemini 429 오류, 20초 후 재시도 ({}/{})", attempt, maxRetries - 1);
-                    try { Thread.sleep(20_000); } catch (InterruptedException ie) {
+                int status = e.getStatusCode().value();
+                if ((status == 429 || status == 503) && attempt < maxRetries) {
+                    int delaySec = status == 503 ? 10 : 20;
+                    log.warn("Gemini {} 오류, {}초 후 재시도 ({}/{})", status, delaySec, attempt, maxRetries - 1);
+                    try { Thread.sleep(delaySec * 1000L); } catch (InterruptedException ie) {
                         Thread.currentThread().interrupt();
                         throw new RuntimeException("재시도 중단됨", ie);
                     }
