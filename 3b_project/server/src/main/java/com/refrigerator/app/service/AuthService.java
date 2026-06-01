@@ -3,6 +3,7 @@ package com.refrigerator.app.service;
 import com.refrigerator.app.dto.AuthResponseDto;
 import com.refrigerator.app.dto.LoginRequestDto;
 import com.refrigerator.app.dto.RegisterRequestDto;
+import com.refrigerator.app.dto.UpdateProfileRequestDto;
 import com.refrigerator.app.entity.User;
 import com.refrigerator.app.repository.UserRepository;
 import com.refrigerator.app.security.JwtUtil;
@@ -54,6 +55,7 @@ public class AuthService {
                 .loginId(user.getLoginId())
                 .username(user.getUsername())
                 .email(user.getEmail())
+                .phone(user.getPhone())
                 .token(token)
                 .build();
     }
@@ -77,6 +79,45 @@ public class AuthService {
                 .loginId(user.getLoginId())
                 .username(user.getUsername())
                 .email(user.getEmail())
+                .phone(user.getPhone())
+                .token(token)
+                .build();
+    }
+
+    /**
+     * 프로필 수정
+     */
+    @Transactional
+    public AuthResponseDto updateProfile(Long userId, UpdateProfileRequestDto dto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+
+        if (dto.getUsername() != null && !dto.getUsername().equals(user.getUsername())) {
+            if (userRepository.existsByUsername(dto.getUsername()))
+                throw new RuntimeException("이미 사용 중인 닉네임입니다.");
+            user.setUsername(dto.getUsername());
+        }
+        if (dto.getEmail() != null && !dto.getEmail().equals(user.getEmail())) {
+            if (userRepository.existsByEmail(dto.getEmail()))
+                throw new RuntimeException("이미 사용 중인 이메일입니다.");
+            user.setEmail(dto.getEmail());
+        }
+        if (dto.getPhone() != null) {
+            user.setPhone(dto.getPhone());
+        }
+        if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+
+        user = userRepository.save(user);
+        String token = jwtUtil.generateToken(user.getUserId(), user.getEmail());
+
+        return AuthResponseDto.builder()
+                .userId(user.getUserId())
+                .loginId(user.getLoginId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .phone(user.getPhone())
                 .token(token)
                 .build();
     }

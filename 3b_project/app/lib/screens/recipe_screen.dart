@@ -4,6 +4,7 @@ import '../models/recipe.dart';
 import '../services/auth_service.dart';
 import '../widgets/app_loading_indicator.dart';
 import '../widgets/empty_state_widget.dart';
+import 'cart_screen.dart';
 import 'recipe_detail_screen.dart';
 import '../services/api_service.dart';
 
@@ -69,6 +70,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
       appBar: AppBar(
         title: const Text('추천 레시피'),
         actions: [
+          const CartIconButton(),
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: _loadRecipes,

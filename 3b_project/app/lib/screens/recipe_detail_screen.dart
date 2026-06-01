@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/recipe.dart';
 import '../services/api_service.dart';
+import '../services/cart_service.dart';
+import 'cart_screen.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   final Recipe recipe;
@@ -20,6 +23,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       appBar: AppBar(
         title: Text(recipe.title),
         actions: [
+          const CartIconButton(),
           IconButton(
             icon: Icon(
               recipe.isSaved == 1 ? Icons.bookmark : Icons.bookmark_outline,
@@ -102,9 +106,41 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
             // 필요 재료
             if (recipe.ingredients.isNotEmpty) ...[
-              const Text('필요 재료',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('필요 재료',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  TextButton.icon(
+                    icon: const Icon(Icons.shopping_cart_outlined, size: 16),
+                    label: const Text('장바구니에 담기'),
+                    onPressed: () {
+                      final cart = context.read<CartService>();
+                      final missing = recipe.ingredients
+                          .where((e) => e.isAvailable == 0)
+                          .map((e) => CartItem(
+                                name: e.ingredientName,
+                                amount: e.amount,
+                              ))
+                          .toList();
+                      if (missing.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('냉장고에 모든 재료가 있어요!')),
+                        );
+                        return;
+                      }
+                      cart.addItems(missing);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('${missing.length}개 재료를 장바구니에 담았어요.'),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
               ...recipe.ingredients.map((ing) => ListTile(
                     dense: true,
                     leading: Icon(
@@ -145,4 +181,3 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     );
   }
 }
-

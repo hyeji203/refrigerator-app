@@ -6,6 +6,7 @@ import '../../models/ingredient.dart';
 import '../../services/auth_service.dart';
 import '../../services/ingredient_service.dart';
 import '../../widgets/empty_state_widget.dart';
+import '../cart_screen.dart';
 import 'widgets/expiry_notification_panel.dart';
 import 'widgets/ingredient_action_dialog.dart';
 
@@ -39,7 +40,8 @@ class IngredientScreenState extends State<IngredientScreen> {
         IngredientApiService.getExpiringIngredients(userId),
       ]).timeout(
         const Duration(seconds: 15),
-        onTimeout: () => throw Exception('서버 응답 시간이 초과됐습니다. 서버가 실행 중인지 확인해주세요.'),
+        onTimeout: () =>
+            throw Exception('서버 응답 시간이 초과됐습니다. 서버가 실행 중인지 확인해주세요.'),
       );
       if (!mounted) return;
       setState(() {
@@ -117,13 +119,14 @@ class IngredientScreenState extends State<IngredientScreen> {
       appBar: AppBar(
         title: const Text('내 냉장고'),
         actions: [
+          const CartIconButton(),
           Stack(
             alignment: Alignment.center,
             children: [
               IconButton(
                 icon: const Icon(Icons.notifications_outlined),
-                onPressed: () => ExpiryNotificationPanel.show(
-                    context, _expiringIngredients),
+                onPressed: () =>
+                    ExpiryNotificationPanel.show(context, _expiringIngredients),
                 tooltip: '유통기한 알림',
               ),
               if (_expiringIngredients.isNotEmpty)
@@ -207,8 +210,8 @@ class IngredientScreenState extends State<IngredientScreen> {
                             ),
                           ),
                           title: Text(ingredient.ingredientName,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                           subtitle: Text(
                             [
                               if (ingredient.quantity != null)
@@ -223,13 +226,11 @@ class IngredientScreenState extends State<IngredientScreen> {
                                       horizontal: 8, vertical: 4),
                                   decoration: BoxDecoration(
                                     color: Colors.red,
-                                    borderRadius:
-                                        BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: const Text('곧 만료',
                                       style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 11)),
+                                          color: Colors.white, fontSize: 11)),
                                 )
                               : null,
                         ),

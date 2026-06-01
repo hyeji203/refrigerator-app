@@ -5,15 +5,17 @@ public class AuthResponseDto {
     private String loginId;
     private String username;
     private String email;
+    private String phone;
     private String token;
 
     public AuthResponseDto() {}
 
-    public AuthResponseDto(Long userId, String loginId, String username, String email, String token) {
+    public AuthResponseDto(Long userId, String loginId, String username, String email, String phone, String token) {
         this.userId = userId;
         this.loginId = loginId;
         this.username = username;
         this.email = email;
+        this.phone = phone;
         this.token = token;
     }
 
@@ -25,6 +27,8 @@ public class AuthResponseDto {
     public void setUsername(String username) { this.username = username; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
     public String getToken() { return token; }
     public void setToken(String token) { this.token = token; }
 
@@ -35,16 +39,18 @@ public class AuthResponseDto {
         private String loginId;
         private String username;
         private String email;
+        private String phone;
         private String token;
 
         public Builder userId(Long userId) { this.userId = userId; return this; }
         public Builder loginId(String loginId) { this.loginId = loginId; return this; }
         public Builder username(String username) { this.username = username; return this; }
         public Builder email(String email) { this.email = email; return this; }
+        public Builder phone(String phone) { this.phone = phone; return this; }
         public Builder token(String token) { this.token = token; return this; }
 
         public AuthResponseDto build() {
-            return new AuthResponseDto(userId, loginId, username, email, token);
+            return new AuthResponseDto(userId, loginId, username, email, phone, token);
         }
     }
 }

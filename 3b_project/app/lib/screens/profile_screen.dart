@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
+import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -10,6 +11,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  void _goToEditProfile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const EditProfileScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthService>();
@@ -19,7 +27,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          // 프로필 카드
           Card(
             child: Padding(
               padding: const EdgeInsets.all(24),
@@ -41,13 +48,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     auth.loginId != null ? '@${auth.loginId}' : '',
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
+                  if (auth.email != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      auth.email!,
+                      style: const TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                  ],
                 ],
               ),
             ),
           ),
           const SizedBox(height: 16),
-
-          // 설정 메뉴
+          ListTile(
+            leading: const Icon(Icons.edit, color: Color(0xFF4CAF50)),
+            title: const Text('프로필 수정'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: _goToEditProfile,
+          ),
+          const Divider(),
           ListTile(
             leading: const Icon(Icons.logout, color: Colors.red),
             title: const Text('로그아웃'),
