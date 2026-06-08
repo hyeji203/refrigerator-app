@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/recipe.dart';
@@ -46,7 +47,13 @@ class _RecipeScreenState extends State<RecipeScreen> {
     if (userId == null) return;
     setState(() => _isRecommending = true);
     try {
-      final response = await ApiService.dio.post('/recipes/recommend/$userId');
+      final response = await ApiService.dio.post(
+        '/recipes/recommend/$userId',
+        options: Options(
+          sendTimeout: const Duration(seconds: 60),
+          receiveTimeout: const Duration(seconds: 180),
+        ),
+      );
       final List data = response.data;
       final newRecipes = data.map((e) => Recipe.fromJson(e)).toList();
       setState(() => _recipes = [...newRecipes, ..._recipes]);
@@ -62,6 +69,13 @@ class _RecipeScreenState extends State<RecipeScreen> {
     } finally {
       setState(() => _isRecommending = false);
     }
+  }
+
+  static String? _thumbnailUrl(String? youtubeUrl) {
+    if (youtubeUrl == null) return null;
+    final videoId = Uri.tryParse(youtubeUrl)?.queryParameters['v'];
+    if (videoId == null) return null;
+    return 'https://img.youtube.com/vi/$videoId/hqdefault.jpg';
   }
 
   @override
@@ -115,66 +129,83 @@ class _RecipeScreenState extends State<RecipeScreen> {
                           itemCount: _recipes.length,
                           itemBuilder: (context, index) {
                             final recipe = _recipes[index];
+                            final thumbnailUrl = _thumbnailUrl(recipe.youtubeUrl);
                             return Card(
                               margin: const EdgeInsets.only(bottom: 12),
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.all(16),
-                                title: Text(recipe.title,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16)),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      children: [
-                                        if (recipe.cookingTime != null) ...[
-                                          const Icon(Icons.timer,
-                                              size: 14, color: Colors.grey),
-                                          Text(' ${recipe.cookingTime}분  ',
-                                              style: const TextStyle(
-                                                  color: Colors.grey)),
-                                        ],
-                                        if (recipe.difficulty != null) ...[
-                                          const Icon(Icons.bar_chart,
-                                              size: 14, color: Colors.grey),
-                                          Text(' ${recipe.difficulty}',
-                                              style: const TextStyle(
-                                                  color: Colors.grey)),
-                                        ],
-                                      ],
-                                    ),
-                                    if (recipe.youtubeUrl != null)
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.play_circle_filled,
-                                                color: Colors.red, size: 16),
-                                            Text('  YouTube 영상 있음',
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    fontSize: 12)),
-                                          ],
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                                trailing: Icon(
-                                  recipe.isSaved == 1
-                                      ? Icons.bookmark
-                                      : Icons.bookmark_outline,
-                                  color: recipe.isSaved == 1
-                                      ? Colors.amber
-                                      : Colors.grey,
-                                ),
+                              clipBehavior: Clip.antiAlias,
+                              child: InkWell(
                                 onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (_) =>
-                                        RecipeDetailScreen(recipe: recipe),
+                                    builder: (_) => RecipeDetailScreen(recipe: recipe),
                                   ),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (thumbnailUrl != null)
+                                      Stack(
+                                        children: [
+                                          Image.network(
+                                            thumbnailUrl,
+                                            width: double.infinity,
+                                            height: 180,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (_, __, ___) => Container(
+                                              height: 180,
+                                              color: Colors.grey[200],
+                                              child: const Icon(Icons.play_circle_outline,
+                                                  size: 48, color: Colors.grey),
+                                            ),
+                                          ),
+                                          const Positioned(
+                                            bottom: 8, right: 8,
+                                            child: Icon(Icons.play_circle_filled,
+                                                color: Colors.red, size: 40),
+                                          ),
+                                          Positioned(
+                                            top: 8, right: 8,
+                                            child: Icon(
+                                              recipe.isSaved == 1
+                                                  ? Icons.bookmark
+                                                  : Icons.bookmark_outline,
+                                              color: recipe.isSaved == 1
+                                                  ? Colors.amber
+                                                  : Colors.white,
+                                              shadows: const [Shadow(blurRadius: 4)],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(12),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(recipe.title,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis),
+                                          if (recipe.youtubeTitle != null) ...[
+                                            const SizedBox(height: 4),
+                                            Row(children: [
+                                              const Icon(Icons.play_circle_filled,
+                                                  color: Colors.red, size: 14),
+                                              const SizedBox(width: 4),
+                                              Expanded(
+                                                child: Text(recipe.youtubeTitle!,
+                                                    style: const TextStyle(
+                                                        color: Colors.grey, fontSize: 12),
+                                                    overflow: TextOverflow.ellipsis),
+                                              ),
+                                            ]),
+                                          ],
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             );
