@@ -1,0 +1,44 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="USER_DIET_PREFERENCES" directorySegmentName="seg_0" id="8DE9825A-9B23-B569-9578-B6A1AE7E2965">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="USER_ID" id="3CA9F86F-5985-1BF3-12CA-DE6DCC63DF3B">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DIET_TYPE" id="6880BAF6-15DB-F0D9-9F38-AC42C16E9060">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PREFERENCE_ID" id="83F7B666-96E6-207A-DA8A-7640B2801206">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="FK_UDP_USER" id="AEF891B8-0D51-3A38-7C2A-CA0494A35F05">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="USER_DIET_PREFERENCES_PK" id="7944697E-7DB4-F5A0-9428-4650C25E43E4">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev20c>

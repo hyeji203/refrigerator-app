@@ -1,0 +1,55 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="RECIPE_INGREDIENTS" directorySegmentName="seg_0" id="8E2FA68F-E483-FAA9-F756-E1DED1F239BD">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:30 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="RECIPE_ID" id="0A05DDAA-D8C4-D715-08CF-A0FF06200AA9">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IS_AVAILABLE" id="32D70D39-B139-2746-BD8B-B542FC83BDD6">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<defaultValue>0</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="AMOUNT" id="3524D0A4-842C-9E20-C8CF-CD33D525AD7A">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="INGREDIENT_NAME" id="A9AA5468-54B9-0872-07D1-BB980E24B47E">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="RECIPE_ING_ID" id="E9308322-D06C-9528-6E3C-8AC6CA200944">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="FK_RI_RECIPE" id="EF91ADC9-5E46-E183-CC0C-8CC46A5E54D6">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="RECIPE_INGREDIENTS_PK" id="5B49DA09-A401-9927-586C-5216E4E5ED94">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev20c>

@@ -1,0 +1,161 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="06C6AD39-C62B-DCA0-A0C2-36EC6775E18B" name="USER_INGREDIENTS">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>EA9052C3-9D7E-81D7-0C94-B0767BDFC7D5</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="USER_INGREDIENT_ID" id="A72989CC-B320-4C62-70A1-43B1E18B8705">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>5C0CFC00-DDB3-433B-558A-6F5A750386E2</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>3D431DC5-B9FB-1DA4-31DE-6F4979D8DC69</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="USER_ID" id="02E6809E-E32B-C47B-77A4-80FB0A2F89DD">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>8842C677-6F4E-D5D8-771D-5E2D32216960</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>3D431DC5-B9FB-1DA4-31DE-6F4979D8DC69</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B1E095DD-7939-3978-F27C-9F58BB749686" referredColumn="0E688CE9-DBBF-A615-8718-D7A1F8FD4363"/>
+</associations>
+</Column>
+<Column name="INGREDIENT_NAME" id="8139486C-EBE5-3CD4-3B74-72CDA0207158">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>2E38EE02-E04D-1BAE-4823-6992278826AA</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>77EFB291-8216-9407-BDF8-977A9A2788DD</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="QUANTITY" id="F9C3A2CD-6930-A694-1847-69DF0552A7FD">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>59DB19A2-ECC3-E632-ECD6-591ABB3456B0</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>F74E5C1D-0D2C-BEA7-EA44-D05C13D278A3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EXPIRY_DATE" id="1C2D8DC0-81C7-FAD1-66B4-30E4FC746ADB">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>228FE239-40BE-A943-C5A3-E80E9594A911</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>1BF1FF89-1110-24E4-B130-3005920579D2</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ADDED_METHOD" id="3E9C096A-4E62-E5D3-3610-69B16A5A319E">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>E3B0AE02-4793-2185-01BA-383B40509A68</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>4662635F-B6F6-6FAC-34D6-D3CB73A2DE2C</domain>
+<defaultValue>&apos;MANUAL&apos;</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STATUS" id="EACB369B-E919-BF8F-9549-A55E26895279">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>64FACBB1-4447-3B0B-7068-E936A39A02FD</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>4662635F-B6F6-6FAC-34D6-D3CB73A2DE2C</domain>
+<defaultValue>&apos;ACTIVE&apos;</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_AT" id="2406F0A0-1738-158E-02F1-B3DAF4FB769C">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>6A8B4185-4681-8EE9-1C9A-FE9311DD12C5</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<domain>860218F2-3F8E-AB79-7CDA-C03DA373DF88</domain>
+<defaultValue>SYSTIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UPDATED_AT" id="01442AB2-F16F-A53C-4EA5-2C5A5BFDA2BC">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>E8FBCD16-9E49-7605-B09D-28CF498534B6</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<domain>860218F2-3F8E-AB79-7CDA-C03DA373DF88</domain>
+<defaultValue>SYSTIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="108D9472-F236-8DB1-1C99-ACDB6EF6E286" name="USER_INGREDIENTS_PK">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>03C38AAC-B460-5E68-315C-1DCFE0E1C849</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A72989CC-B320-4C62-70A1-43B1E18B8705"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="78231005-B16A-E8EB-80BB-359A55D240F3" name="FK_UI_USER">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="02E6809E-E32B-C47B-77A4-80FB0A2F89DD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

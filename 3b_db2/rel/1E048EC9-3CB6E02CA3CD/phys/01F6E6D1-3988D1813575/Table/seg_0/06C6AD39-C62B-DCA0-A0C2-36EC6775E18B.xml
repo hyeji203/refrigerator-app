@@ -1,0 +1,78 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="USER_INGREDIENTS" directorySegmentName="seg_0" id="06C6AD39-C62B-DCA0-A0C2-36EC6775E18B">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="UPDATED_AT" id="01442AB2-F16F-A53C-4EA5-2C5A5BFDA2BC">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<defaultValue>SYSTIMESTAMP</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="USER_ID" id="02E6809E-E32B-C47B-77A4-80FB0A2F89DD">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="EXPIRY_DATE" id="1C2D8DC0-81C7-FAD1-66B4-30E4FC746ADB">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CREATED_AT" id="2406F0A0-1738-158E-02F1-B3DAF4FB769C">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<defaultValue>SYSTIMESTAMP</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="ADDED_METHOD" id="3E9C096A-4E62-E5D3-3610-69B16A5A319E">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<defaultValue>&apos;MANUAL&apos;</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="INGREDIENT_NAME" id="8139486C-EBE5-3CD4-3B74-72CDA0207158">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="USER_INGREDIENT_ID" id="A72989CC-B320-4C62-70A1-43B1E18B8705">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+<ColumnProxy name="STATUS" id="EACB369B-E919-BF8F-9549-A55E26895279">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<defaultValue>&apos;ACTIVE&apos;</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="QUANTITY" id="F9C3A2CD-6930-A694-1847-69DF0552A7FD">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="FK_UI_USER" id="78231005-B16A-E8EB-80BB-359A55D240F3">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="USER_INGREDIENTS_PK" id="108D9472-F236-8DB1-1C99-ACDB6EF6E286">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev20c>

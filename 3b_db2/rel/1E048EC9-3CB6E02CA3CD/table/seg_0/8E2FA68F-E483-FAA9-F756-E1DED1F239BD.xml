@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8E2FA68F-E483-FAA9-F756-E1DED1F239BD" name="RECIPE_INGREDIENTS">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:30 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>860DD377-AD76-B692-DB68-BA500A4153E4</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="RECIPE_ING_ID" id="E9308322-D06C-9528-6E3C-8AC6CA200944">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>37B21A5B-3D4D-F606-7EB5-5E4580211C55</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>3D431DC5-B9FB-1DA4-31DE-6F4979D8DC69</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="RECIPE_ID" id="0A05DDAA-D8C4-D715-08CF-A0FF06200AA9">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>C0719032-0E98-EB5C-B939-AB4064159C03</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>3D431DC5-B9FB-1DA4-31DE-6F4979D8DC69</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F8C42C31-6F1D-1219-C037-FC63D1EB0217" referredColumn="6B68865D-CB09-6F44-260F-FF548287D8DC"/>
+</associations>
+</Column>
+<Column name="INGREDIENT_NAME" id="A9AA5468-54B9-0872-07D1-BB980E24B47E">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>F83C58DB-5F8E-68A7-C825-99F25E334727</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>77EFB291-8216-9407-BDF8-977A9A2788DD</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AMOUNT" id="3524D0A4-842C-9E20-C8CF-CD33D525AD7A">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>C0F3D2CD-817C-8F08-26AE-104FF54F58B8</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>F74E5C1D-0D2C-BEA7-EA44-D05C13D278A3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_AVAILABLE" id="32D70D39-B139-2746-BD8B-B542FC83BDD6">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>14AB40FE-B655-8E2F-EF9E-E299086BBABF</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E06B1A67-84D6-8245-2B45-89632164CB72</domain>
+<defaultValue>0</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5B49DA09-A401-9927-586C-5216E4E5ED94" name="RECIPE_INGREDIENTS_PK">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>97958957-A1A4-5B37-DE9D-5E37C432EFE4</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E9308322-D06C-9528-6E3C-8AC6CA200944"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EF91ADC9-5E46-E183-CC0C-8CC46A5E54D6" name="FK_RI_RECIPE">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0A05DDAA-D8C4-D715-08CF-A0FF06200AA9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

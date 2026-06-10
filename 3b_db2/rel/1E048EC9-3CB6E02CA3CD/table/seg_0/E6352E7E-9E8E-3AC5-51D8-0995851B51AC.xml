@@ -1,0 +1,81 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E6352E7E-9E8E-3AC5-51D8-0995851B51AC" name="USER_ALLERGIES">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>3E48A49E-A97B-BE65-C0A0-688ABA8AE7A6</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ALLERGY_ID" id="EC0619B5-BB9C-7BE4-EE53-41C27DF823BB">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>94249254-B1FD-C0C1-32D9-0B5F89F4A51B</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>3D431DC5-B9FB-1DA4-31DE-6F4979D8DC69</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="USER_ID" id="BB4A2378-3382-CF34-A6B7-6036FC2A232A">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>155F823F-755D-6FDA-35D0-B46686FFD287</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>3D431DC5-B9FB-1DA4-31DE-6F4979D8DC69</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EC21C3BA-3391-5F10-4965-B89D248B7562" referredColumn="0E688CE9-DBBF-A615-8718-D7A1F8FD4363"/>
+</associations>
+</Column>
+<Column name="ALLERGEN" id="5C9134CE-6BCC-C2BC-CC12-9F4CBAC49577">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>8B75D03E-4A4C-67AA-AA80-D1726FC6EB91</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>77EFB291-8216-9407-BDF8-977A9A2788DD</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B858CD2E-A098-0D7B-DF79-437472927874" name="USER_ALLERGIES_PK">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>8153B519-CAD6-5869-1120-CC34A4C682EF</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EC0619B5-BB9C-7BE4-EE53-41C27DF823BB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B4E714E3-41F1-E59C-6F3A-368F4FB6BEC4" name="FK_UA_USER">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BB4A2378-3382-CF34-A6B7-6036FC2A232A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

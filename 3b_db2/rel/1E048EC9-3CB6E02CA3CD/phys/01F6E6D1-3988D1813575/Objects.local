@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.storage.oracle.v20c.StorageDesignOraclev20c>
+   <object objectType="User" objectID="MDSYS" name="MDSYS" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v10g.UserOraclev10g" propertyParentId="01F6E6D1-3988D1813575"/>
+   <object objectType="User" objectID="PUBLIC" name="PUBLIC" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v10g.UserOraclev10g" propertyParentId="01F6E6D1-3988D1813575"/>
+   <object objectType="SType" objectID="47E390DE-0671-C4B1-8428-0F45CBEE18F8" name="SDO_GEOMETRY" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v10g.StructuredTypeProxyOraclev10g" propertyParentId="01F6E6D1-3988D1813575"/>
+   <object objectType="SType" objectID="F72C39E0-D1CA-8821-2AD7-A1E95A37D3D1" name="XMLTYPE" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v10g.StructuredTypeProxyOraclev10g" propertyParentId="01F6E6D1-3988D1813575"/>
+   <object objectType="Table" objectID="06C6AD39-C62B-DCA0-A0C2-36EC6775E18B" name="USER_INGREDIENTS" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" propertyParentId="01F6E6D1-3988D1813575"/>
+   <object objectType="Table" objectID="0DE8E01A-6096-8AD7-CAA6-2954240DC4E1" name="SCAN_HISTORY" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" propertyParentId="01F6E6D1-3988D1813575"/>
+   <object objectType="Table" objectID="5D375406-76DD-DA4D-B0A5-616F4E8F97A7" name="RECIPES" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" propertyParentId="01F6E6D1-3988D1813575"/>
+   <object objectType="Table" objectID="7A5F1886-30C4-2B31-ED4C-29E925585E02" name="USERS" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" propertyParentId="01F6E6D1-3988D1813575"/>
+   <object objectType="Table" objectID="8DE9825A-9B23-B569-9578-B6A1AE7E2965" name="USER_DIET_PREFERENCES" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" propertyParentId="01F6E6D1-3988D1813575"/>
+   <object objectType="Table" objectID="8E2FA68F-E483-FAA9-F756-E1DED1F239BD" name="RECIPE_INGREDIENTS" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" propertyParentId="01F6E6D1-3988D1813575"/>
+   <object objectType="Table" objectID="E6352E7E-9E8E-3AC5-51D8-0995851B51AC" name="USER_ALLERGIES" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" propertyParentId="01F6E6D1-3988D1813575"/>
+</oracle.dbtools.crest.model.design.storage.oracle.v20c.StorageDesignOraclev20c>

@@ -1,0 +1,81 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8DE9825A-9B23-B569-9578-B6A1AE7E2965" name="USER_DIET_PREFERENCES">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>60EC61A1-10E4-CB86-DF98-8DAC655647EC</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PREFERENCE_ID" id="83F7B666-96E6-207A-DA8A-7640B2801206">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>AB7BA12B-CABB-58BB-EE2F-1B7052EC8588</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>3D431DC5-B9FB-1DA4-31DE-6F4979D8DC69</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="USER_ID" id="3CA9F86F-5985-1BF3-12CA-DE6DCC63DF3B">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>1460B1E4-7862-703D-D9C9-832CDC2790A6</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>3D431DC5-B9FB-1DA4-31DE-6F4979D8DC69</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A75E0389-68EA-D7BA-5D6B-D6AEC0220859" referredColumn="0E688CE9-DBBF-A615-8718-D7A1F8FD4363"/>
+</associations>
+</Column>
+<Column name="DIET_TYPE" id="6880BAF6-15DB-F0D9-9F38-AC42C16E9060">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>6D2FBA39-D8C5-5762-DC2E-84688D032FF6</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>F74E5C1D-0D2C-BEA7-EA44-D05C13D278A3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7944697E-7DB4-F5A0-9428-4650C25E43E4" name="USER_DIET_PREFERENCES_PK">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>030951EF-D425-B856-E7D9-B1A8AEFF3975</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="83F7B666-96E6-207A-DA8A-7640B2801206"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AEF891B8-0D51-3A38-7C2A-CA0494A35F05" name="FK_UDP_USER">
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3CA9F86F-5985-1BF3-12CA-DE6DCC63DF3B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

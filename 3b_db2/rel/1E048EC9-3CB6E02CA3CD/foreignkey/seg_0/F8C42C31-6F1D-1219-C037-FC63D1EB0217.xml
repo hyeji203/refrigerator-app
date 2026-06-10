@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="F8C42C31-6F1D-1219-C037-FC63D1EB0217" containerWithKeyObject="8E2FA68F-E483-FAA9-F756-E1DED1F239BD" localFKIndex="EF91ADC9-5E46-E183-CC0C-8CC46A5E54D6" name="FK_RI_RECIPE">
+<sourceDDLFile>share_db.sql</sourceDDLFile>
+<createdBy>gw604</createdBy>
+<createdTime>2026-06-01 04:48:31 UTC</createdTime>
+<ownerDesignName>3b_db2</ownerDesignName>
+<importedID>C1ECB27F-5ABF-9229-5921-C8137338286B</importedID>
+<referredTableLongName>RECIPES</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>5D375406-76DD-DA4D-B0A5-616F4E8F97A7</referredTableID>
+<keyObject>C18DDED1-811C-7718-586B-F7AB5AF14407</keyObject>
+<referredKeyID>C18DDED1-811C-7718-586B-F7AB5AF14407</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>RECIPE_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
