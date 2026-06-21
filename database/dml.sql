@@ -1,0 +1,220 @@
+-- =============================================
+-- 냉장고 요리사 앱 DML (Data Manipulation Language)
+-- 샘플 데이터 INSERT
+-- 실행 전 ddl.sql 먼저 실행할 것
+-- 비밀번호: 모든 계정 공통 "1234" (BCrypt 암호화 적용)
+-- =============================================
+
+-- =============================================
+-- 1. 회원 데이터 (USERS)
+-- =============================================
+INSERT INTO USERS (EMAIL, USER_PWD, LOGIN_ID, USERNAME, PHONE)
+VALUES (
+    'hong@example.com',
+    '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy',
+    'hong1234',
+    '홍길동',
+    '010-1234-5678'
+);
+
+INSERT INTO USERS (EMAIL, USER_PWD, LOGIN_ID, USERNAME, PHONE)
+VALUES (
+    'kim@example.com',
+    '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy',
+    'kim1234',
+    '김영희',
+    '010-9876-5432'
+);
+
+-- =============================================
+-- 2. 알레르기 정보 (USER_ALLERGIES)
+-- =============================================
+INSERT INTO USER_ALLERGIES (USER_ID, ALLERGEN)
+VALUES ((SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'hong1234'), '땅콩');
+
+INSERT INTO USER_ALLERGIES (USER_ID, ALLERGEN)
+VALUES ((SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'hong1234'), '새우');
+
+INSERT INTO USER_ALLERGIES (USER_ID, ALLERGEN)
+VALUES ((SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'kim1234'), '우유');
+
+-- =============================================
+-- 3. 식이 선호도 (USER_DIET_PREFERENCES)
+-- =============================================
+INSERT INTO USER_DIET_PREFERENCES (USER_ID, DIET_TYPE)
+VALUES ((SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'hong1234'), '저염식');
+
+INSERT INTO USER_DIET_PREFERENCES (USER_ID, DIET_TYPE)
+VALUES ((SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'kim1234'), '채식');
+
+-- =============================================
+-- 4. 냉장고 식재료 (USER_INGREDIENTS)
+-- =============================================
+-- 홍길동 재료
+INSERT INTO USER_INGREDIENTS (USER_ID, INGREDIENT_NAME, QUANTITY, EXPIRY_DATE, ADDED_METHOD, STATUS)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'hong1234'),
+    '달걀', '10개', TO_DATE('2026-06-28', 'YYYY-MM-DD'), 'MANUAL', 'ACTIVE'
+);
+
+INSERT INTO USER_INGREDIENTS (USER_ID, INGREDIENT_NAME, QUANTITY, EXPIRY_DATE, ADDED_METHOD, STATUS)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'hong1234'),
+    '두부', '1모', TO_DATE('2026-06-25', 'YYYY-MM-DD'), 'SCAN', 'ACTIVE'
+);
+
+INSERT INTO USER_INGREDIENTS (USER_ID, INGREDIENT_NAME, QUANTITY, EXPIRY_DATE, ADDED_METHOD, STATUS)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'hong1234'),
+    '대파', '2개', NULL, 'MANUAL', 'ACTIVE'
+);
+
+INSERT INTO USER_INGREDIENTS (USER_ID, INGREDIENT_NAME, QUANTITY, EXPIRY_DATE, ADDED_METHOD, STATUS)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'hong1234'),
+    '간장', '소량', NULL, 'MANUAL', 'ACTIVE'
+);
+
+INSERT INTO USER_INGREDIENTS (USER_ID, INGREDIENT_NAME, QUANTITY, EXPIRY_DATE, ADDED_METHOD, STATUS)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'hong1234'),
+    '참기름', '소량', NULL, 'MANUAL', 'ACTIVE'
+);
+
+-- 김영희 재료
+INSERT INTO USER_INGREDIENTS (USER_ID, INGREDIENT_NAME, QUANTITY, EXPIRY_DATE, ADDED_METHOD, STATUS)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'kim1234'),
+    '양파', '3개', NULL, 'MANUAL', 'ACTIVE'
+);
+
+INSERT INTO USER_INGREDIENTS (USER_ID, INGREDIENT_NAME, QUANTITY, EXPIRY_DATE, ADDED_METHOD, STATUS)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'kim1234'),
+    '당근', '2개', NULL, 'SCAN', 'ACTIVE'
+);
+
+INSERT INTO USER_INGREDIENTS (USER_ID, INGREDIENT_NAME, QUANTITY, EXPIRY_DATE, ADDED_METHOD, STATUS)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'kim1234'),
+    '애호박', '1개', TO_DATE('2026-06-24', 'YYYY-MM-DD'), 'MANUAL', 'ACTIVE'
+);
+
+-- =============================================
+-- 5. 냉장고 스캔 이력 (SCAN_HISTORY)
+-- =============================================
+INSERT INTO SCAN_HISTORY (USER_ID, IMAGE_URL, RECOGNIZED_JSON)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'hong1234'),
+    NULL,
+    '{"ingredients":["달걀","두부","대파"]}'
+);
+
+INSERT INTO SCAN_HISTORY (USER_ID, IMAGE_URL, RECOGNIZED_JSON)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'kim1234'),
+    NULL,
+    '{"ingredients":["양파","당근","애호박"]}'
+);
+
+-- =============================================
+-- 6. AI 추천 레시피 (RECIPES)
+-- =============================================
+INSERT INTO RECIPES (
+    USER_ID, TITLE, DESCRIPTION,
+    COOKING_TIME, DIFFICULTY, SERVINGS,
+    YOUTUBE_URL, YOUTUBE_TITLE, IS_SAVED
+)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'hong1234'),
+    '달걀 두부 조림',
+    '냉장고 재료로 간단하게 만드는 달걀 두부 조림입니다. 간장과 참기름으로 맛을 내고 대파로 마무리합니다.',
+    20, '쉬움', 2,
+    'https://www.youtube.com/watch?v=example1',
+    '초간단 달걀두부조림 만들기',
+    1
+);
+
+INSERT INTO RECIPES (
+    USER_ID, TITLE, DESCRIPTION,
+    COOKING_TIME, DIFFICULTY, SERVINGS,
+    YOUTUBE_URL, YOUTUBE_TITLE, IS_SAVED
+)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE LOGIN_ID = 'kim1234'),
+    '채소 볶음',
+    '양파, 당근, 애호박을 활용한 건강 채소 볶음입니다. 간단하고 영양가가 높습니다.',
+    15, '쉬움', 2,
+    'https://www.youtube.com/watch?v=example2',
+    '간단 채소볶음 레시피',
+    0
+);
+
+-- =============================================
+-- 7. 레시피 필요 재료 (RECIPE_INGREDIENTS)
+-- =============================================
+-- 달걀 두부 조림 재료
+INSERT INTO RECIPE_INGREDIENTS (RECIPE_ID, INGREDIENT_NAME, AMOUNT, IS_AVAILABLE)
+VALUES (
+    (SELECT RECIPE_ID FROM RECIPES WHERE TITLE = '달걀 두부 조림'),
+    '달걀', '3개', 1
+);
+
+INSERT INTO RECIPE_INGREDIENTS (RECIPE_ID, INGREDIENT_NAME, AMOUNT, IS_AVAILABLE)
+VALUES (
+    (SELECT RECIPE_ID FROM RECIPES WHERE TITLE = '달걀 두부 조림'),
+    '두부', '1/2모', 1
+);
+
+INSERT INTO RECIPE_INGREDIENTS (RECIPE_ID, INGREDIENT_NAME, AMOUNT, IS_AVAILABLE)
+VALUES (
+    (SELECT RECIPE_ID FROM RECIPES WHERE TITLE = '달걀 두부 조림'),
+    '간장', '2큰술', 1
+);
+
+INSERT INTO RECIPE_INGREDIENTS (RECIPE_ID, INGREDIENT_NAME, AMOUNT, IS_AVAILABLE)
+VALUES (
+    (SELECT RECIPE_ID FROM RECIPES WHERE TITLE = '달걀 두부 조림'),
+    '참기름', '1작은술', 1
+);
+
+INSERT INTO RECIPE_INGREDIENTS (RECIPE_ID, INGREDIENT_NAME, AMOUNT, IS_AVAILABLE)
+VALUES (
+    (SELECT RECIPE_ID FROM RECIPES WHERE TITLE = '달걀 두부 조림'),
+    '대파', '1/2대', 1
+);
+
+-- 채소 볶음 재료
+INSERT INTO RECIPE_INGREDIENTS (RECIPE_ID, INGREDIENT_NAME, AMOUNT, IS_AVAILABLE)
+VALUES (
+    (SELECT RECIPE_ID FROM RECIPES WHERE TITLE = '채소 볶음'),
+    '양파', '1개', 1
+);
+
+INSERT INTO RECIPE_INGREDIENTS (RECIPE_ID, INGREDIENT_NAME, AMOUNT, IS_AVAILABLE)
+VALUES (
+    (SELECT RECIPE_ID FROM RECIPES WHERE TITLE = '채소 볶음'),
+    '당근', '1개', 1
+);
+
+INSERT INTO RECIPE_INGREDIENTS (RECIPE_ID, INGREDIENT_NAME, AMOUNT, IS_AVAILABLE)
+VALUES (
+    (SELECT RECIPE_ID FROM RECIPES WHERE TITLE = '채소 볶음'),
+    '애호박', '1/2개', 1
+);
+
+INSERT INTO RECIPE_INGREDIENTS (RECIPE_ID, INGREDIENT_NAME, AMOUNT, IS_AVAILABLE)
+VALUES (
+    (SELECT RECIPE_ID FROM RECIPES WHERE TITLE = '채소 볶음'),
+    '식용유', '1큰술', 0
+);
+
+COMMIT;
+
+SELECT '=== 샘플 데이터 입력 완료 ===' AS STATUS FROM DUAL;
+SELECT COUNT(*) AS 회원수           FROM USERS;
+SELECT COUNT(*) AS 재료수           FROM USER_INGREDIENTS;
+SELECT COUNT(*) AS 레시피수         FROM RECIPES;
+SELECT COUNT(*) AS 레시피재료수     FROM RECIPE_INGREDIENTS;
+SELECT COUNT(*) AS 알레르기수       FROM USER_ALLERGIES;
+SELECT COUNT(*) AS 스캔이력수       FROM SCAN_HISTORY;
