@@ -76,7 +76,8 @@ class _ScanScreenState extends State<ScanScreen>
     setState(() => _step = ScanStep.analyzing);
 
     try {
-      final names = await IngredientApiService.analyzeImage(_imageBytes!);
+      final userId = context.read<AuthService>().userId;
+      final names = await IngredientApiService.analyzeImage(_imageBytes!, userId: userId);
       setState(() {
         _items = names.map((n) => ScanIngredientItem(name: n)).toList();
         _step = ScanStep.review;

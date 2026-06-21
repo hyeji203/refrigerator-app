@@ -36,8 +36,8 @@ class IngredientApiService {
     return data.map((e) => Ingredient.fromJson(e)).toList();
   }
 
-  // 냉장고 사진 분석 - AI 인식만 하고 저장은 하지 않음
-  static Future<List<String>> analyzeImage(Uint8List imageBytes) async {
+  // 냉장고 사진 분석 - AI 인식 후 SCAN_HISTORY DB 저장
+  static Future<List<String>> analyzeImage(Uint8List imageBytes, {int? userId}) async {
     FormData formData = FormData.fromMap({
       'image': MultipartFile.fromBytes(
         imageBytes,
@@ -45,8 +45,9 @@ class IngredientApiService {
       ),
     });
 
-    final response = await ApiService.dio.post(
-      '/scan/analyze',
+    final path = userId != null ? '/scan/analyze?userId=$userId' : '/scan/analyze';
+    final response = await ApiService.dioLong.post(
+      path,
       data: formData,
       options: Options(contentType: 'multipart/form-data'),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
+import 'allergy_screen.dart';
 import 'edit_profile_screen.dart';
 import 'cart_screen.dart';
 import 'recipe_screen.dart';
@@ -81,9 +82,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.shopping_cart, color: Color(0xFF4CAF50), size: 32),
+                        Icon(Icons.shopping_cart,
+                            color: Color(0xFF4CAF50), size: 32),
                         SizedBox(height: 8),
-                        Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text('장바구니',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -93,7 +96,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: GestureDetector(
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const RecipeScreen(showOnlySaved: true)),
+                    MaterialPageRoute(
+                        builder: (_) =>
+                            const RecipeScreen(showOnlySaved: true)),
                   ),
                   child: Container(
                     height: 100,
@@ -106,9 +111,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.bookmark, color: Color(0xFF4CAF50), size: 32),
+                        Icon(Icons.bookmark,
+                            color: Color(0xFF4CAF50), size: 32),
                         SizedBox(height: 8),
-                        Text('북마크 레시피', style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text('북마크 레시피',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -122,6 +129,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             title: const Text('프로필 수정'),
             trailing: const Icon(Icons.chevron_right),
             onTap: _goToEditProfile,
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.warning_amber_outlined,
+                color: Color(0xFF4CAF50)),
+            title: const Text('알레르기 관리'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const AllergyScreen()),
+            ),
           ),
           const Divider(),
           ListTile(

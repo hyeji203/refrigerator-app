@@ -10,6 +10,7 @@ class AuthService extends ChangeNotifier {
   String? _username;
   String? _email;
   String? _phone;
+  String? _allergies;
   bool _isLoggedIn = false;
 
   int? get userId => _userId;
@@ -17,9 +18,10 @@ class AuthService extends ChangeNotifier {
   String? get username => _username;
   String? get email => _email;
   String? get phone => _phone;
+  String? get allergies => _allergies;
   bool get isLoggedIn => _isLoggedIn;
 
-  // 회원가입 - 실패 시 예외를 던짐
+  // 회원가입
   Future<void> register(String loginId, String username, String password,
       String email, String phone) async {
     try {
@@ -36,7 +38,7 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  // 로그인 - 실패 시 예외를 던짐
+  // 로그인
   Future<void> login(String loginId, String password) async {
     try {
       final response = await ApiService.dio.post('/auth/login', data: {
@@ -49,7 +51,7 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  // 로그인/회원가입 성공 후 세션 데이터를 메모리와 SharedPreferences에 저장
+  // 세션 데이터 저장
   Future<void> _saveSessionData(Map<String, dynamic> data) async {
     _userId = data['userId'];
     _loginId = data['loginId'];
@@ -70,6 +72,7 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
+  // 프로필 수정 (서버 연동)
   Future<void> updateProfile({
     String? username,
     String? email,
@@ -89,51 +92,32 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  // DioException을 사람이 읽을 수 있는 Exception으로 변환
-  Exception _parseDioException(DioException e, {required String fallback}) {
-    final msg = e.response?.data?['message'];
-    if (msg != null) return Exception(msg);
-    if (e.type == DioExceptionType.connectionError ||
-        e.type == DioExceptionType.unknown) {
-      return Exception('서버에 연결할 수 없습니다. 백엔드 서버가 실행 중인지 확인해주세요.');
-    }
-    return Exception('$fallback: ${e.message}');
-  }
-
-  bool _isTokenExpired(String token) {
+  // 알레르기 저장 (DB 연동)
+  Future<void> saveAllergies(String allergies) async {
     try {
-      final parts = token.split('.');
-      if (parts.length != 3) return true;
-      String payload = parts[1];
-      // base64url 패딩 보정
-      payload += '=' * ((4 - payload.length % 4) % 4);
-      final decoded = utf8.decode(base64Url.decode(payload));
-      final map = json.decode(decoded) as Map<String, dynamic>;
-      final exp = map['exp'] as int?;
-      if (exp == null) return false;
-      return DateTime.fromMillisecondsSinceEpoch(exp * 1000)
-          .isBefore(DateTime.now());
-    } catch (_) {
-      return true;
+      await ApiService.dio.post('/users/$_userId/allergies', data: {'allergies': allergies});
+      _allergies = allergies;
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('allergies', allergies);
+      notifyListeners();
+    } on DioException catch (e) {
+      throw _parseDioException(e, fallback: '알레르기 저장 중 오류가 발생했습니다');
     }
   }
 
-  // 자동 로그인 (앱 시작 시)
-  Future<void> tryAutoLogin() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-    if (token != null && !_isTokenExpired(token)) {
-      _userId = prefs.getInt('userId');
-      _loginId = prefs.getString('loginId');
-      _username = prefs.getString('username');
-      _email = prefs.getString('email');
-      _phone = prefs.getString('phone');
-      _isLoggedIn = true;
-      ApiService.setAuthToken(token);
+  // 알레르기 불러오기 (DB 연동)
+  Future<void> loadAllergies() async {
+    try {
+      final response = await ApiService.dio.get('/users/$_userId/allergies');
+      _allergies = response.data['allergies'] as String?;
+      final prefs = await SharedPreferences.getInstance();
+      if (_allergies != null) await prefs.setString('allergies', _allergies!);
       notifyListeners();
-    } else if (token != null) {
-      // 만료된 토큰 제거
-      await prefs.clear();
+    } on DioException catch (e) {
+      // 서버 오류 시 로컬 캐시 사용
+      final prefs = await SharedPreferences.getInstance();
+      _allergies = prefs.getString('allergies');
+      notifyListeners();
     }
   }
 
@@ -154,14 +138,76 @@ class AuthService extends ChangeNotifier {
     notifyListeners();
   }
 
+  // DioException 처리
+  Exception _parseDioException(DioException e, {required String fallback}) {
+    final msg = e.response?.data?['message'];
+    if (msg != null) return Exception(msg);
+    if (e.type == DioExceptionType.connectionError ||
+        e.type == DioExceptionType.unknown) {
+      return Exception('서버에 연결할 수 없습니다. 백엔드 서버가 실행 중인지 확인해주세요.');
+    }
+    return Exception('$fallback: ${e.message}');
+  }
+
+  bool _isTokenExpired(String token) {
+    try {
+      final parts = token.split('.');
+      if (parts.length != 3) return true;
+      String payload = parts[1];
+      payload += '=' * ((4 - payload.length % 4) % 4);
+      final decoded = utf8.decode(base64Url.decode(payload));
+      final map = json.decode(decoded) as Map<String, dynamic>;
+      final exp = map['exp'] as int?;
+      if (exp == null) return false;
+      return DateTime.fromMillisecondsSinceEpoch(exp * 1000)
+          .isBefore(DateTime.now());
+    } catch (_) {
+      return true;
+    }
+  }
+
+  // 자동 로그인
+  Future<void> tryAutoLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token != null && !_isTokenExpired(token)) {
+      _userId = prefs.getInt('userId');
+      _loginId = prefs.getString('loginId');
+      _username = prefs.getString('username');
+      _email = prefs.getString('email');
+      _phone = prefs.getString('phone');
+      _allergies = prefs.getString('allergies');
+      _isLoggedIn = true;
+      ApiService.setAuthToken(token);
+      notifyListeners();
+      // 서버에서 최신 알레르기 정보 동기화
+      await loadAllergies();
+    } else if (token != null) {
+      await _clearAuthPrefs();
+    }
+  }
+
+  Future<void> _clearAuthPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    await prefs.remove('userId');
+    await prefs.remove('loginId');
+    await prefs.remove('username');
+    await prefs.remove('email');
+    await prefs.remove('phone');
+    await prefs.remove('allergies');
+  }
+
   // 로그아웃
   Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    await _clearAuthPrefs();
     ApiService.clearAuthToken();
     _userId = null;
     _loginId = null;
     _username = null;
+    _email = null;
+    _phone = null;
+    _allergies = null;
     _isLoggedIn = false;
     notifyListeners();
   }

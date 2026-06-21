@@ -37,6 +37,35 @@ public class RecipeController {
         return ResponseEntity.ok().build();
     }
 
+    // 조회 기록 저장
+    @PatchMapping("/{recipeId}/view")
+    public ResponseEntity<Void> recordView(@PathVariable Long recipeId) {
+        recipeService.recordView(recipeId);
+        return ResponseEntity.ok().build();
+    }
+
+    // 최근 본 레시피 (최대 10개)
+    @GetMapping("/user/{userId}/history")
+    public ResponseEntity<List<RecipeResponseDto>> getViewHistory(@PathVariable Long userId) {
+        return ResponseEntity.ok(recipeService.getViewHistory(userId));
+    }
+
+    // 요리 이름 또는 재료로 검색
+    @GetMapping("/search")
+    public ResponseEntity<List<RecipeResponseDto>> searchRecipes(
+            @RequestParam Long userId,
+            @RequestParam String keyword) {
+        return ResponseEntity.ok(recipeService.searchRecipes(userId, keyword));
+    }
+
+    // 재료 하나로 AI 레시피 생성
+    @PostMapping("/recommend-by-ingredient/{userId}")
+    public ResponseEntity<List<RecipeResponseDto>> recommendByIngredient(
+            @PathVariable Long userId,
+            @RequestParam String ingredient) {
+        return ResponseEntity.ok(recipeService.recommendRecipesByIngredient(userId, ingredient));
+    }
+
     // 레시피 삭제
     @DeleteMapping("/{recipeId}")
     public ResponseEntity<Void> deleteRecipe(@PathVariable Long recipeId) {
